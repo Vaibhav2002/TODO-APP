@@ -1,3 +1,4 @@
 <resources>
+    <string name="welcometext">Save your daily work with the MyDoes App </string>
     <string name="app_name">TODO</string>
 </resources>
