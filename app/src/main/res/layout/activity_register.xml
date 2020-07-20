@@ -69,7 +69,7 @@
 
 
             <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/Fullnameinput"
+                android:id="@+id/Fullnameinput1"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
@@ -79,6 +79,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="Fullname"
+                    android:inputType="textPersonName"
                     android:textColor="#000000"
                     android:textSize="20sp" />
 
@@ -87,9 +88,9 @@
 
 
             <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/usernameinput"
+                android:id="@+id/usernameinput1"
                 android:transitionName="usernametrans"
-                android:layout_below="@+id/Fullnameinput"
+                android:layout_below="@+id/Fullnameinput1"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
@@ -106,17 +107,17 @@
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/emailinput"
+                android:id="@+id/emailinput1"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/usernameinput">
+                android:layout_below="@+id/usernameinput1">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="Email"
-                    android:inputType="textPassword"
+                    android:inputType="textEmailAddress"
                     android:textColor="#000000"
                     android:textSize="20sp" />
 
@@ -125,11 +126,11 @@
 
             <com.google.android.material.textfield.TextInputLayout
                 android:transitionName="passwordtrans"
-                android:id="@+id/passwordinput"
+                android:id="@+id/passwordinput1"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/emailinput"
+                android:layout_below="@+id/emailinput1"
                 app:passwordToggleEnabled="true">
 
                 <com.google.android.material.textfield.TextInputEditText
@@ -147,12 +148,12 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/passwordinput"
+                android:layout_below="@+id/passwordinput1"
                 android:gravity="center_horizontal"
                 android:orientation="vertical">
 
                 <com.google.android.material.button.MaterialButton
-                    android:id="@+id/loginbtn"
+                    android:id="@+id/signupbtn"
                     android:layout_width="300dp"
                     android:layout_height="wrap_content"
 
@@ -168,6 +169,7 @@
                     app:cornerRadius="10dp" />
 
                 <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/loingoto"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"

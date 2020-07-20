@@ -90,6 +90,7 @@ public class LoginActivity extends AppCompatActivity {
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 if (dataSnapshot.exists()) {
                     String passwordin = dataSnapshot.child(usernametext).child("password").getValue(String.class);
+                    progressBar.setVisibility(View.GONE);
                     if (passwordin.equals(userpassword)) {
                         System.out.println("pass correct");
                         Intent intent=new Intent(LoginActivity.this,TodoActivity.class);
