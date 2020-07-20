@@ -59,24 +59,29 @@
         <com.google.android.material.button.MaterialButton
             android:transitionName="loginbtntrans"
             android:id="@+id/loginbtn"
-            android:layout_width="140dp"
-            android:layout_marginRight="50dp"
+            android:layout_width="150dp"
+            android:layout_marginRight="40dp"
             android:layout_height="70dp"
             app:cornerRadius="5dp"
             android:text="Log In"
             android:textStyle="bold"
-            android:textSize="20sp"
+            android:textSize="18sp"
+            android:outlineAmbientShadowColor="@color/colorPrimaryDark"
+            android:outlineSpotShadowColor="@color/colorPrimaryDark"
             android:shadowColor="@color/colorPrimaryDark"
             android:elevation="50dp"/>
 
         <com.google.android.material.button.MaterialButton
+            android:transitionName="loginbtntrans"
             android:id="@+id/registerbtn"
-            android:layout_width="140dp"
+            android:layout_width="150dp"
             android:layout_height="70dp"
             app:cornerRadius="5dp"
             android:textStyle="bold"
             android:text="REgister"
-            android:textSize="20sp"
+            android:textSize="18sp"
+            android:outlineAmbientShadowColor="@color/colorPrimaryDark"
+            android:outlineSpotShadowColor="@color/colorPrimaryDark"
             android:shadowColor="@color/colorPrimaryDark"
             android:elevation="50dp"/>
 

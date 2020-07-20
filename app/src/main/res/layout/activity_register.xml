@@ -1,15 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
-
-<ScrollView android:layout_height="wrap_content"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    xmlns:android="http://schemas.android.com/apk/res/android" >
+    android:layout_height="wrap_content">
 
     <LinearLayout xmlns:app="http://schemas.android.com/apk/res-auto"
         xmlns:tools="http://schemas.android.com/tools"
-        android:gravity="center_horizontal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="20dp"
+        android:gravity="center_horizontal"
         android:orientation="vertical"
         android:transitionName="loginbtntrans"
         tools:context=".LoginActivity">
@@ -24,7 +23,7 @@
             android:gravity="start"
             android:includeFontPadding="false"
             android:shadowColor="@color/colorPrimaryDark"
-            android:text="WELCOME"
+            android:text="Create"
             android:textAllCaps="true"
             android:textColor="@color/colorPrimaryDark"
             android:textSize="60sp" />
@@ -38,16 +37,16 @@
             android:gravity="start"
             android:includeFontPadding="false"
             android:shadowColor="@color/colorPrimaryDark"
-            android:text="Sign in to continue"
+            android:text="ACCOUNT"
             android:textAllCaps="true"
             android:textColor="@color/colorPrimary"
-            android:textSize="20sp" />
+            android:textSize="40sp" />
 
         <RelativeLayout
-            android:gravity="center_horizontal"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="90dp">
+            android:gravity="center_horizontal"
+            android:layout_marginTop="50dp">
 
 
             <RelativeLayout
@@ -56,22 +55,41 @@
                 android:layout_centerInParent="true">
 
                 <ProgressBar
-                    android:id="@+id/progbar"
-                    android:visibility="gone"
-                    tools:visibility="visible"
-                    android:layout_width="50dp"
-                    android:layout_height="50dp"
+                    android:id="@+id/progbar2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
                     android:layout_centerInParent="true"
                     android:outlineAmbientShadowColor="@color/colorPrimaryDark"
-                    android:outlineSpotShadowColor="@color/colorPrimaryDark"/>
+                    android:outlineSpotShadowColor="@color/colorPrimaryDark"
+                    android:visibility="gone"
+                    tools:visibility="visible" />
 
 
             </RelativeLayout>
 
 
             <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/Fullnameinput"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <com.google.android.material.textfield.TextInputEditText
+
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Fullname"
+                    android:textColor="#000000"
+                    android:textSize="20sp" />
+
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+
+            <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/usernameinput"
                 android:transitionName="usernametrans"
+                android:layout_below="@+id/Fullnameinput"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
@@ -88,12 +106,30 @@
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/passwordinput"
-                android:transitionName="passwordtrans"
-                android:layout_below="@+id/usernameinput"
+                android:id="@+id/emailinput"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_below="@+id/usernameinput">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Email"
+                    android:inputType="textPassword"
+                    android:textColor="#000000"
+                    android:textSize="20sp" />
+
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:transitionName="passwordtrans"
+                android:id="@+id/passwordinput"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/emailinput"
                 app:passwordToggleEnabled="true">
 
                 <com.google.android.material.textfield.TextInputEditText
@@ -107,41 +143,13 @@
 
             </com.google.android.material.textfield.TextInputLayout>
 
-            <RelativeLayout
-                android:id="@+id/forgotremember"
-                android:layout_below="@+id/passwordinput"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:gravity="center_vertical">
-
-                <CheckBox
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:gravity="center_vertical"
-                    android:text="Remember me"
-                    android:textColor="#000000"
-                    android:textSize="12sp" />
-
-                <com.google.android.material.textview.MaterialTextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentEnd="true"
-                    android:text="Forgot password?"
-                    android:layout_marginTop="15dp"
-                    android:textColor="#000000"
-                    android:textSize="12sp" />
-
-
-            </RelativeLayout>
-
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/forgotremember"
-                android:orientation="vertical"
-                android:gravity="center_horizontal">
+                android:layout_below="@+id/passwordinput"
+                android:gravity="center_horizontal"
+                android:orientation="vertical">
 
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/loginbtn"
@@ -154,23 +162,21 @@
                     android:outlineSpotShadowColor="@color/colorPrimaryDark"
                     android:paddingVertical="8dp"
                     android:shadowColor="@color/colorPrimaryDark"
-                    android:text="sign in"
+                    android:text="sign Up"
                     android:textColor="#ffffff"
                     android:textSize="30sp"
                     app:cornerRadius="10dp" />
 
                 <com.google.android.material.textview.MaterialTextView
-                    android:id="@+id/signupgoto"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
                     android:layout_marginTop="8dp"
-                    android:text="New User ? Sign up "
+                    android:text="Already have an account? Login"
                     android:textColor="#000000"
                     android:textSize="15sp" />
 
             </LinearLayout>
-
 
 
         </RelativeLayout>

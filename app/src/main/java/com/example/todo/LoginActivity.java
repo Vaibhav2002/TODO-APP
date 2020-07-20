@@ -1,14 +1,18 @@
 package com.example.todo;
 
+import android.app.ActivityOptions;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Pair;
 import android.view.View;
+import android.widget.ProgressBar;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.textfield.TextInputLayout;
+import com.google.android.material.textview.MaterialTextView;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -18,7 +22,9 @@ import com.google.firebase.database.ValueEventListener;
 
 public class LoginActivity extends AppCompatActivity {
     TextInputLayout username, password;
+    MaterialTextView signupdirect;
     MaterialButton loginbutton;
+    ProgressBar progressBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,7 +33,9 @@ public class LoginActivity extends AppCompatActivity {
 
         username = findViewById(R.id.usernameinput);
         password = findViewById(R.id.passwordinput);
+        progressBar=findViewById(R.id.progbar);
         loginbutton = findViewById(R.id.loginbtn);
+        signupdirect=findViewById(R.id.signupgoto);
         loginbutton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -38,19 +46,28 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
 
+        signupdirect.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Pair[] pair =new Pair[2];
+                pair[0]=new Pair<View,String>(username,"usernametrans");
+                pair[1]=new Pair<View,String>(password,"passwordtrans");
+                ActivityOptions activityOptions=ActivityOptions.makeSceneTransitionAnimation(LoginActivity.this,pair);
+                Intent intent=new Intent(LoginActivity.this,RegisterActivity.class);
+                startActivity(intent,activityOptions.toBundle());
+            }
+        });
+
     }
 
     private boolean validate(String usernametext, String userpassword) {
         boolean flag = true;
-        if (usernametext.length() <= 4) {
-            username.setError("Username length too small");
-            flag = false;
-        } else if (usernametext.length() >= 12) {
-            username.setError("Username length too long");
+        if (usernametext.isEmpty()) {
+            username.setError("Field cannot be empty");
             flag = false;
         }
-        if (userpassword.length() <= 4) {
-            password.setError("Password length too small");
+        if (userpassword.isEmpty()) {
+            password.setError("Field cannot be empty");
             flag = false;
         }
         if (flag) {
@@ -61,6 +78,7 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private void usercheck(final String usernametext, final String userpassword) {
+        progressBar.setVisibility(View.VISIBLE);
         FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
         DatabaseReference databaseReference = firebaseDatabase.getReference("users");
         Query check = databaseReference.orderByChild("username").equalTo(usernametext);

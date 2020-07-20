@@ -28,6 +28,15 @@ public class WelcomeActivity extends AppCompatActivity {
                 startActivity(intent,activityOptions.toBundle());
             }
         });
+        register.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Pair pair =new Pair<View,String>(register,"loginbtntrans");
+                ActivityOptions activityOptions=ActivityOptions.makeSceneTransitionAnimation(WelcomeActivity.this,pair);
+                Intent intent=new Intent(WelcomeActivity.this,RegisterActivity.class);
+                startActivity(intent,activityOptions.toBundle());
+            }
+        });
 
     }
 }
