@@ -87,6 +87,7 @@ public class RegisterActivity extends AppCompatActivity {
         AlertDialog.Builder builder=new AlertDialog.Builder(RegisterActivity.this);
         builder.setMessage("Connect to the internet to continue")
                 .setCancelable(false)
+                .setTitle("Connect to internet")
                 .setPositiveButton("Connect", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
@@ -100,6 +101,8 @@ public class RegisterActivity extends AppCompatActivity {
                         finish();
                     }
                 });
+        builder.create();
+        builder.show();
     }
 
     private boolean isInternetAvalable(RegisterActivity registerActivity) {
