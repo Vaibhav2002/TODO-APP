@@ -1,8 +1,14 @@
 package com.example.todo;
 
 import android.app.ActivityOptions;
+import android.app.AlertDialog;
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
+import android.provider.Settings;
 import android.util.Pair;
 import android.view.View;
 import android.widget.ProgressBar;
@@ -39,10 +45,13 @@ public class LoginActivity extends AppCompatActivity {
         loginbutton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String usernametext = username.getEditText().getText().toString().trim();
-                String userpassword = password.getEditText().getText().toString().trim();
-                if (validate(usernametext, userpassword))
-                    usercheck(usernametext, userpassword);
+                if(isInternetAvalable(LoginActivity.this)) {
+                    String usernametext = username.getEditText().getText().toString().trim();
+                    String userpassword = password.getEditText().getText().toString().trim();
+                    if (validate(usernametext, userpassword))
+                        usercheck(usernametext, userpassword);
+                }
+                else showdialog();
             }
         });
 
@@ -58,6 +67,35 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
 
+    }
+
+    private void showdialog() {
+        AlertDialog.Builder builder=new AlertDialog.Builder(LoginActivity.this);
+        builder.setMessage("Connect to the internet to continue")
+                .setCancelable(false)
+                .setPositiveButton("Connect", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        startActivity(new Intent(Settings.ACTION_WIFI_SETTINGS));
+                    }
+                })
+                .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        startActivity(new Intent(LoginActivity.this,WelcomeActivity.class));
+                        finish();
+                    }
+                });
+    }
+
+    private boolean isInternetAvalable(LoginActivity loginActivity) {
+        ConnectivityManager connectivityManag= (ConnectivityManager) loginActivity.getSystemService(Context.CONNECTIVITY_SERVICE);
+        assert connectivityManag != null;
+        NetworkInfo wificonn=connectivityManag.getNetworkInfo(ConnectivityManager.TYPE_WIFI);
+        NetworkInfo mobileconn=connectivityManag.getNetworkInfo(ConnectivityManager.TYPE_MOBILE);
+        assert mobileconn != null;
+        assert wificonn != null;
+        return((mobileconn!=null&&wificonn.isConnected())||(wificonn!=null&&mobileconn.isConnected()));
     }
 
     private boolean validate(String usernametext, String userpassword) {
