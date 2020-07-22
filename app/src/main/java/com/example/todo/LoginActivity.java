@@ -11,6 +11,7 @@ import android.os.Bundle;
 import android.provider.Settings;
 import android.util.Pair;
 import android.view.View;
+import android.widget.CheckBox;
 import android.widget.ProgressBar;
 
 import androidx.annotation.NonNull;
@@ -26,11 +27,14 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
+import java.util.HashMap;
+
 public class LoginActivity extends AppCompatActivity {
     TextInputLayout username, password;
     MaterialTextView signupdirect;
     MaterialButton loginbutton;
     ProgressBar progressBar;
+    CheckBox checkBox;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,38 +43,51 @@ public class LoginActivity extends AppCompatActivity {
 
         username = findViewById(R.id.usernameinput);
         password = findViewById(R.id.passwordinput);
-        progressBar=findViewById(R.id.progbar);
+        progressBar = findViewById(R.id.progbar);
         loginbutton = findViewById(R.id.loginbtn);
-        signupdirect=findViewById(R.id.signupgoto);
+        checkBox = findViewById(R.id.checkremember);
+        signupdirect = findViewById(R.id.signupgoto);
+
+        RememberMeSession rememberMeSession = new RememberMeSession(LoginActivity.this);
+        if (rememberMeSession.checkRememberMe()) {
+            checkBox.setChecked(true);
+            HashMap<String, String> useradata = rememberMeSession.returnData();
+            username.getEditText().setText(useradata.get("username"));
+            password.getEditText().setText(useradata.get("password"));
+        }
         loginbutton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(isInternetAvalable(LoginActivity.this)) {
+                if (isInternetAvalable(LoginActivity.this)) {
                     String usernametext = username.getEditText().getText().toString().trim();
                     String userpassword = password.getEditText().getText().toString().trim();
-                    if (validate(usernametext, userpassword))
+                    if (validate(usernametext, userpassword)) {
+                        RememberMeSession rememberMeSession = new RememberMeSession(LoginActivity.this);
+                        if (checkBox.isChecked()) {
+                            rememberMeSession.createRememberMeSession(usernametext, userpassword);
+                        } else rememberMeSession.removeRememberMe();
                         usercheck(usernametext, userpassword);
-                }
-                else showdialog();
+                    }
+                } else showdialog();
             }
         });
 
         signupdirect.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Pair[] pair =new Pair[2];
-                pair[0]=new Pair<View,String>(username,"usernametrans");
-                pair[1]=new Pair<View,String>(password,"passwordtrans");
-                ActivityOptions activityOptions=ActivityOptions.makeSceneTransitionAnimation(LoginActivity.this,pair);
-                Intent intent=new Intent(LoginActivity.this,RegisterActivity.class);
-                startActivity(intent,activityOptions.toBundle());
+                Pair[] pair = new Pair[2];
+                pair[0] = new Pair<View, String>(username, "usernametrans");
+                pair[1] = new Pair<View, String>(password, "passwordtrans");
+                ActivityOptions activityOptions = ActivityOptions.makeSceneTransitionAnimation(LoginActivity.this, pair);
+                Intent intent = new Intent(LoginActivity.this, RegisterActivity.class);
+                startActivity(intent, activityOptions.toBundle());
             }
         });
 
     }
 
     private void showdialog() {
-        AlertDialog.Builder builder=new AlertDialog.Builder(LoginActivity.this);
+        AlertDialog.Builder builder = new AlertDialog.Builder(LoginActivity.this);
         builder.setMessage("Connect to the internet to continue")
                 .setTitle("Connect to internet")
                 .setCancelable(false)
@@ -83,22 +100,22 @@ public class LoginActivity extends AppCompatActivity {
                 .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        startActivity(new Intent(LoginActivity.this,WelcomeActivity.class));
+                        startActivity(new Intent(LoginActivity.this, WelcomeActivity.class));
                         finish();
                     }
                 });
-        builder.create();
-        builder.show();
+        AlertDialog alertDialog = builder.create();
+        alertDialog.show();
     }
 
     private boolean isInternetAvalable(LoginActivity loginActivity) {
-        ConnectivityManager connectivityManag= (ConnectivityManager) loginActivity.getSystemService(Context.CONNECTIVITY_SERVICE);
+        ConnectivityManager connectivityManag = (ConnectivityManager) loginActivity.getSystemService(Context.CONNECTIVITY_SERVICE);
         assert connectivityManag != null;
-        NetworkInfo wificonn=connectivityManag.getNetworkInfo(ConnectivityManager.TYPE_WIFI);
-        NetworkInfo mobileconn=connectivityManag.getNetworkInfo(ConnectivityManager.TYPE_MOBILE);
+        NetworkInfo wificonn = connectivityManag.getNetworkInfo(ConnectivityManager.TYPE_WIFI);
+        NetworkInfo mobileconn = connectivityManag.getNetworkInfo(ConnectivityManager.TYPE_MOBILE);
         assert mobileconn != null;
         assert wificonn != null;
-        return((mobileconn!=null&&wificonn.isConnected())||(wificonn!=null&&mobileconn.isConnected()));
+        return ((mobileconn != null && wificonn.isConnected()) || (wificonn != null && mobileconn.isConnected()));
     }
 
     private boolean validate(String usernametext, String userpassword) {
@@ -134,8 +151,8 @@ public class LoginActivity extends AppCompatActivity {
                     progressBar.setVisibility(View.GONE);
                     if (passwordin.equals(userpassword)) {
                         System.out.println("pass correct");
-                        Intent intent=new Intent(LoginActivity.this,TodoActivity.class);
-                        intent.putExtra("Username",usernametext);
+                        Intent intent = new Intent(LoginActivity.this, TodoActivity.class);
+                        intent.putExtra("Username", usernametext);
                         startActivity(intent);
                         passfound[0] = true;
                     } else {
@@ -152,7 +169,7 @@ public class LoginActivity extends AppCompatActivity {
                     username.setErrorEnabled(false);
                     if (wrongpass[0])
                         password.setError("Incorrect password");
-                    else if(passfound[0])
+                    else if (passfound[0])
                         password.setErrorEnabled(false);
                 }
 
