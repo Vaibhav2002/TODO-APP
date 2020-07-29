@@ -1,4 +1,14 @@
 <resources>
     <string name="welcometext">Save your daily work with the MyDoes App </string>
     <string name="app_name">TODO</string>
+    <string name="todo1">Chemistry 2 chapters\nphysics 4 chapters.......\nMaths trigonometry</string>
+    <string name="title_activity_todo1">Todo1Activity</string>
+    <!-- Strings used for fragments for navigation -->
+    <string name="first_fragment_label">First Fragment</string>
+    <string name="second_fragment_label">Second Fragment</string>
+    <string name="next">Next</string>
+    <string name="previous">Previous</string>
+
+    <string name="hello_first_fragment">Hello first fragment</string>
+    <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
 </resources>

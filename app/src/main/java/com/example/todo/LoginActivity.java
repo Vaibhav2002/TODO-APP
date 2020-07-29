@@ -154,6 +154,7 @@ public class LoginActivity extends AppCompatActivity {
                         Intent intent = new Intent(LoginActivity.this, TodoActivity.class);
                         intent.putExtra("Username", usernametext);
                         startActivity(intent);
+                        finish();
                         passfound[0] = true;
                     } else {
                         System.out.println("incorrect pass");

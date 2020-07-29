@@ -120,6 +120,8 @@ public class RegisterActivity extends AppCompatActivity {
         FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
         DatabaseReference databaseReference = firebaseDatabase.getReference("users");
         databaseReference.child(userHelperClass.username).setValue(userHelperClass);
+        DatabaseReference databaseReference1=firebaseDatabase.getReference().child(userHelperClass.username);
+        databaseReference1.child("TODOS");
     }
 
     private boolean valid(String usernameinput, String passwordinput, String fullnameinput, String emailinput) {

@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="20dp"
+    tools:context=".newTodo">
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/titlenewtodo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Create new TODO"
+        android:layout_marginTop="20dp"
+        android:textSize="60sp"
+        android:includeFontPadding="false"
+        android:fontFamily="@font/bungee"
+        android:textColor="@color/colorPrimaryDark"
+        android:shadowColor="@color/colorPrimaryDark"
+        android:elevation="20dp"/>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/titleinput"
+        android:layout_below="@+id/titlenewtodo"
+        android:layout_marginTop="60dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Title"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:fontFamily="sans-serif"
+            android:textSize="20sp"
+            android:maxLines="1"/>
+
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:layout_below="@+id/titleinput"
+        android:layout_marginTop="10dp"
+        android:id="@+id/descrinput"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Description"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:fontFamily="sans-serif"
+            android:textSize="20sp" />
+
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <ImageView
+        android:id="@+id/addtodo"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:src="@drawable/check"
+        android:elevation="20dp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"/>
+
+
+</RelativeLayout>

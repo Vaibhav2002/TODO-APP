@@ -12,11 +12,23 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".RegisterActivity" android:launchMode="singleTask" />
-        <activity android:name=".WelcomeActivity" android:launchMode="singleTask" />
-        <activity android:name=".TodoActivity" android:launchMode="singleTask" />
-        <activity android:name=".LoginActivity" android:launchMode="singleTask"/>
-        <activity android:name=".Splash_screen" android:launchMode="singleTask">
+        <activity android:name=".newTodo"
+            android:launchMode="singleTask"/>
+        <activity
+            android:name=".RegisterActivity"
+            android:launchMode="singleTask" />
+        <activity
+            android:name=".WelcomeActivity"
+            android:launchMode="singleTask" />
+        <activity
+            android:name=".TodoActivity"
+            android:launchMode="singleTask" />
+        <activity
+            android:name=".LoginActivity"
+            android:launchMode="singleTask" />
+        <activity
+            android:name=".Splash_screen"
+            android:launchMode="singleTask">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
