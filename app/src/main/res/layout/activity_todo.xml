@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 
+
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
@@ -23,6 +24,9 @@
     <ScrollView xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:nestedScrollingEnabled="false"
+        android:scrollbarStyle="outsideOverlay"
+        android:scrollbarSize="10dp"
         android:background="#ffffff">
 
         <RelativeLayout
@@ -70,18 +74,16 @@
 
             </RelativeLayout>
 
-
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/recycleview"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/titscr"
-                android:layout_marginTop="-50dp"
-                android:elevation="100dp"
-                android:outlineAmbientShadowColor="@color/colorPrimaryDark"
-                android:outlineSpotShadowColor="@color/colorPrimaryDark"
-                android:padding="20dp" />
-
+                <androidx.recyclerview.widget.RecyclerView
+                    android:layout_below="@id/titscr"
+                    android:id="@+id/recycleview"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="-60dp"
+                    android:elevation="100dp"
+                    android:outlineAmbientShadowColor="@color/colorPrimaryDark"
+                    android:outlineSpotShadowColor="@color/colorPrimaryDark"
+                    android:padding="20dp" />
 
             <com.google.android.material.textview.MaterialTextView
                 android:layout_width="wrap_content"
