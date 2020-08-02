@@ -1,35 +1,48 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
     android:layout_height="100dp"
+    android:elevation="20dp"
+    app:cardCornerRadius="20dp"
+    app:cardBackgroundColor="#F1EFEF"
     android:outlineAmbientShadowColor="@color/colorPrimaryDark"
     android:outlineSpotShadowColor="@color/colorPrimaryDark"
-    android:background="@drawable/review"
     android:padding="20dp"
     android:layout_marginBottom="20dp">
-
-    <com.google.android.material.textview.MaterialTextView
-        android:id="@+id/titledoes"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textSize="25sp"
-        android:text="Hello"
-        android:shadowColor="@color/colorPrimaryDark"
-        android:textColor="#000000"
-        android:includeFontPadding="false"
-        android:layout_marginBottom="8dp"
-        android:fontFamily="@font/bungee"/>
-
-    <com.google.android.material.textview.MaterialTextView
-        android:id="@+id/descdoes"
-        android:layout_width="wrap_content"
-        android:maxLength="20"
-        android:shadowColor="@color/colorPrimaryDark"
-        android:layout_height="wrap_content"
-        android:textSize="15sp"
-        android:text="todays work"
-        android:includeFontPadding="false"
-        android:fontFamily="sans-serif"/>
+    <LinearLayout
+        android:padding="20dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
 
-</LinearLayout>
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/titledoes"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="25sp"
+            android:text="Hello"
+            android:shadowColor="@color/colorPrimaryDark"
+            android:textColor="#000000"
+            android:includeFontPadding="false"
+            android:layout_marginBottom="8dp"
+            android:fontFamily="@font/bungee"/>
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/descdoes"
+            android:layout_width="wrap_content"
+            android:maxLength="20"
+            android:shadowColor="@color/colorPrimaryDark"
+            android:layout_height="wrap_content"
+            android:textSize="15sp"
+            android:text="todays work"
+            android:includeFontPadding="false"
+            android:fontFamily="sans-serif"/>
+
+    </LinearLayout>
+
+
+
+</androidx.cardview.widget.CardView>

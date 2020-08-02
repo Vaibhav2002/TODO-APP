@@ -60,7 +60,6 @@ public class TodoActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-
         DatabaseReference databaseReference= FirebaseDatabase.getInstance().getReference("users").child(username).child("TODOS");
         databaseReference.addValueEventListener(new ValueEventListener() {
             @Override
