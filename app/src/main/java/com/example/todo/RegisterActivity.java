@@ -15,7 +15,9 @@ import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.view.ContextThemeWrapper;
 
+import com.airbnb.lottie.LottieAnimationView;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.textfield.TextInputLayout;
 import com.google.android.material.textview.MaterialTextView;
@@ -28,7 +30,7 @@ public class RegisterActivity extends AppCompatActivity {
     TextInputLayout usernametext, passwordtext, fullnametext, emailtext;
     MaterialButton signup;
     MaterialTextView gotologin;
-    ProgressBar progressBar;
+    LottieAnimationView progressBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -84,7 +86,7 @@ public class RegisterActivity extends AppCompatActivity {
     }
 
     private void showdialog() {
-        AlertDialog.Builder builder=new AlertDialog.Builder(RegisterActivity.this);
+        AlertDialog.Builder builder=new AlertDialog.Builder(new ContextThemeWrapper(RegisterActivity.this,R.style.Theme_AppCompat_Light_Dialog_Alert));
         builder.setMessage("Connect to the internet to continue")
                 .setCancelable(false)
                 .setTitle("Connect to internet")
@@ -117,9 +119,11 @@ public class RegisterActivity extends AppCompatActivity {
 
     void reguser(UserHelperClass userHelperClass) {
         progressBar.setVisibility(View.VISIBLE);
+        progressBar.playAnimation();
         FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
         DatabaseReference databaseReference = firebaseDatabase.getReference("users");
         databaseReference.child(userHelperClass.username).setValue(userHelperClass);
+        progressBar.setVisibility(View.GONE);
     }
 
     private boolean valid(String usernameinput, String passwordinput, String fullnameinput, String emailinput) {

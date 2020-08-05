@@ -12,7 +12,7 @@
     android:outlineSpotShadowColor="@color/colorPrimaryDark"
     android:padding="20dp"
     android:layout_marginBottom="20dp">
-    <LinearLayout
+    <RelativeLayout
         android:padding="20dp"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -33,6 +33,7 @@
 
         <com.google.android.material.textview.MaterialTextView
             android:id="@+id/descdoes"
+            android:layout_below="@+id/titledoes"
             android:layout_width="wrap_content"
             android:shadowColor="@color/colorPrimaryDark"
             android:layout_height="wrap_content"
@@ -41,7 +42,18 @@
             android:includeFontPadding="false"
             android:fontFamily="sans-serif"/>
 
-    </LinearLayout>
+        <com.airbnb.lottie.LottieAnimationView
+            android:id="@+id/checkTodo"
+            android:layout_marginTop="-5dp"
+            android:layout_marginRight="-5dp"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentRight="true"
+            app:lottie_rawRes="@raw/checkboxcustom"/>
+
+
+    </RelativeLayout>
 
 
 

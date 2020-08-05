@@ -52,16 +52,17 @@
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:elevation="200dp"
                 android:layout_centerInParent="true">
 
-                <ProgressBar
+                <com.airbnb.lottie.LottieAnimationView
                     android:id="@+id/progbar2"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_width="60dp"
+                    android:layout_height="60dp"
                     android:layout_centerInParent="true"
-                    android:outlineAmbientShadowColor="@color/colorPrimaryDark"
-                    android:outlineSpotShadowColor="@color/colorPrimaryDark"
                     android:visibility="gone"
+                    app:lottie_loop="true"
+                    app:lottie_rawRes="@raw/prog"
                     tools:visibility="visible" />
 
 

@@ -16,7 +16,9 @@ import android.widget.ProgressBar;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.view.ContextThemeWrapper;
 
+import com.airbnb.lottie.LottieAnimationView;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.textfield.TextInputLayout;
 import com.google.android.material.textview.MaterialTextView;
@@ -33,7 +35,7 @@ public class LoginActivity extends AppCompatActivity {
     TextInputLayout username, password;
     MaterialTextView signupdirect;
     MaterialButton loginbutton;
-    ProgressBar progressBar;
+    LottieAnimationView progressBar;
     CheckBox checkBox;
 
     @Override
@@ -87,7 +89,7 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private void showdialog() {
-        AlertDialog.Builder builder = new AlertDialog.Builder(LoginActivity.this);
+        AlertDialog.Builder builder = new AlertDialog.Builder(new ContextThemeWrapper(LoginActivity.this,R.style.Theme_AppCompat_Light_Dialog_Alert));
         builder.setMessage("Connect to the internet to continue")
                 .setTitle("Connect to internet")
                 .setCancelable(false)
@@ -137,6 +139,7 @@ public class LoginActivity extends AppCompatActivity {
 
     private void usercheck(final String usernametext, final String userpassword) {
         progressBar.setVisibility(View.VISIBLE);
+        progressBar.playAnimation();
         FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
         DatabaseReference databaseReference = firebaseDatabase.getReference("users");
         Query check = databaseReference.orderByChild("username").equalTo(usernametext);

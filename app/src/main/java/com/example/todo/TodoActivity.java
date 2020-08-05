@@ -10,6 +10,7 @@ import android.os.Bundle;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -29,6 +30,7 @@ public class TodoActivity extends AppCompatActivity {
     ArrayList<myDoes> list;
     DoesAdapter doesAdapter;
     ImageView logout,newtodo;
+    ScrollView scrollView;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -36,6 +38,7 @@ public class TodoActivity extends AppCompatActivity {
         textView=findViewById(R.id.usernamedisp);
         logout=findViewById(R.id.logouticon);
         newtodo=findViewById(R.id.newtodobtn);
+        scrollView=findViewById(R.id.scroll);
         final String username=getIntent().getExtras().getString("Username");
         textView.setText(username);
         recyclerView=findViewById(R.id.recycleview);
@@ -59,17 +62,20 @@ public class TodoActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+        scrollView.setSmoothScrollingEnabled(true);
+        scrollView.fling(20);
         DatabaseReference databaseReference= FirebaseDatabase.getInstance().getReference("users").child(username).child("TODOS");
         databaseReference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
+                list.clear();
                 for(DataSnapshot dataSnapshot:snapshot.getChildren())
                 {
                     myDoes p=dataSnapshot.getValue(myDoes.class);
                     list.add(p);
                 }
                 System.out.println(list.size());
-                doesAdapter =new DoesAdapter(TodoActivity.this,list);
+                doesAdapter =new DoesAdapter(TodoActivity.this,list,username);
                 recyclerView.setAdapter(doesAdapter);
                 doesAdapter.notifyDataSetChanged();
             }

@@ -12,7 +12,9 @@
         android:id="@+id/titlenewtodo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Create new TODO"
+        android:text="EDIT TODO"
+        android:textAllCaps="true"
+        android:textAlignment="center"
         android:layout_marginBottom="10dp"
         android:layout_marginTop="20dp"
         android:textSize="60sp"
@@ -39,7 +41,7 @@
 
 
             <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/titleinput"
+                android:id="@+id/titleedit"
                 android:layout_marginTop="60dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -59,7 +61,7 @@
 
             <com.google.android.material.textfield.TextInputLayout
                 android:layout_marginTop="10dp"
-                android:id="@+id/descrinput"
+                android:id="@+id/descedit"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="Description"
@@ -81,12 +83,22 @@
 
 
     <ImageView
-        android:id="@+id/addtodo"
+        android:id="@+id/savetodo"
         android:layout_width="60dp"
         android:layout_height="60dp"
         android:src="@drawable/check"
         android:elevation="20dp"
         android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"/>
+
+    <ImageView
+        android:id="@+id/deletetodo"
+        android:elevation="20dp"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:src="@drawable/close"
+        android:layout_above="@+id/savetodo"
+        android:layout_marginBottom="10dp"
         android:layout_alignParentRight="true"/>
 
 

@@ -16,6 +16,7 @@
         android:outlineAmbientShadowColor="@color/colorPrimaryDark"
         android:src="@drawable/notepad" />
     <LinearLayout
+        android:layout_marginTop="30dp"
         android:layout_marginLeft="50dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
