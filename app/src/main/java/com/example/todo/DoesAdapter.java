@@ -18,7 +18,6 @@ public class DoesAdapter extends RecyclerView.Adapter<DoesAdapter.MyViewholder> 
     Context context;
     ArrayList<myDoes> myDoes;
     String username;
-    boolean ischecked = false;
 
     DoesAdapter(Context c, ArrayList<myDoes> p, String user) {
         context = c;
@@ -34,7 +33,7 @@ public class DoesAdapter extends RecyclerView.Adapter<DoesAdapter.MyViewholder> 
 
     @Override
     public void onBindViewHolder(@NonNull final MyViewholder holder, final int position) {
-        ischecked = false;
+        final boolean[] ischecked = {false};
         holder.TITLE.setText(myDoes.get(position).getTITLE());
         holder.DESCRIPTION.setText(myDoes.get(position).getDESCRIPTION());
         holder.itemView.setOnClickListener(new View.OnClickListener() {
@@ -51,12 +50,12 @@ public class DoesAdapter extends RecyclerView.Adapter<DoesAdapter.MyViewholder> 
         holder.check.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (!ischecked)
+                if (!ischecked[0])
                     holder.check.setSpeed(3);
                 else
                     holder.check.setSpeed(-3);
                 holder.check.playAnimation();
-                ischecked = !ischecked;
+                ischecked[0] = !ischecked[0];
             }
         });
     }

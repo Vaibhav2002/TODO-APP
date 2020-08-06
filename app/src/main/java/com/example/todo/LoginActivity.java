@@ -9,10 +9,10 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.provider.Settings;
+import android.util.Log;
 import android.util.Pair;
 import android.view.View;
 import android.widget.CheckBox;
-import android.widget.ProgressBar;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -33,7 +33,7 @@ import java.util.HashMap;
 
 public class LoginActivity extends AppCompatActivity {
     TextInputLayout username, password;
-    MaterialTextView signupdirect;
+    MaterialTextView signupdirect,forgot;
     MaterialButton loginbutton;
     LottieAnimationView progressBar;
     CheckBox checkBox;
@@ -49,6 +49,7 @@ public class LoginActivity extends AppCompatActivity {
         loginbutton = findViewById(R.id.loginbtn);
         checkBox = findViewById(R.id.checkremember);
         signupdirect = findViewById(R.id.signupgoto);
+        forgot=findViewById(R.id.forgotpass);
 
         RememberMeSession rememberMeSession = new RememberMeSession(LoginActivity.this);
         if (rememberMeSession.checkRememberMe()) {
@@ -71,6 +72,7 @@ public class LoginActivity extends AppCompatActivity {
                         usercheck(usernametext, userpassword);
                     }
                 } else showdialog();
+                progressBar.setVisibility(View.GONE);
             }
         });
 
@@ -85,11 +87,42 @@ public class LoginActivity extends AppCompatActivity {
                 startActivity(intent, activityOptions.toBundle());
             }
         });
+        forgot.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String usernametext = username.getEditText().getText().toString().trim();
+                userfound(usernametext);
+            }
+        });
 
     }
 
+    private void userfound(final String usernametext) {
+        progressBar.setVisibility(View.VISIBLE);
+        progressBar.playAnimation();
+        FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
+        DatabaseReference databaseReference = firebaseDatabase.getReference("users").child(usernametext);
+        databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if(snapshot.exists())
+                {
+                    progressBar.setVisibility(View.GONE);
+                    username.setErrorEnabled(false);
+                    Intent intent = new Intent(LoginActivity.this, forgotPassword.class);
+                    intent.putExtra("username", usernametext);
+                    startActivity(intent);
+                }
+                else { username.setError("User not found");progressBar.setVisibility(View.GONE);}
+            }
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+            }
+        });
+    }
+
     private void showdialog() {
-        AlertDialog.Builder builder = new AlertDialog.Builder(new ContextThemeWrapper(LoginActivity.this,R.style.Theme_AppCompat_Light_Dialog_Alert));
+        AlertDialog.Builder builder = new AlertDialog.Builder(new ContextThemeWrapper(LoginActivity.this,R.style.Theme_AppCompat_Dialog_Alert));
         builder.setMessage("Connect to the internet to continue")
                 .setTitle("Connect to internet")
                 .setCancelable(false)

@@ -63,7 +63,7 @@ public class EditTodo extends AppCompatActivity {
         delete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                AlertDialog.Builder builder = new AlertDialog.Builder(new ContextThemeWrapper(EditTodo.this,R.style.Theme_AppCompat_Light_Dialog_Alert));
+                AlertDialog.Builder builder = new AlertDialog.Builder(new ContextThemeWrapper(EditTodo.this,R.style.Theme_AppCompat_Dialog_Alert));
                 builder.setMessage("Are you sure you want to delete this todo?")
                         .setCancelable(true)
                         .setTitle("Delete")
