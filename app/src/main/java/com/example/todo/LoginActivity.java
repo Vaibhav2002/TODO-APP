@@ -13,23 +13,32 @@ import android.util.Log;
 import android.util.Pair;
 import android.view.View;
 import android.widget.CheckBox;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.view.ContextThemeWrapper;
 
 import com.airbnb.lottie.LottieAnimationView;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.textfield.TextInputLayout;
 import com.google.android.material.textview.MaterialTextView;
+import com.google.firebase.FirebaseException;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.PhoneAuthCredential;
+import com.google.firebase.auth.PhoneAuthProvider;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
+import com.mukesh.OtpView;
 
 import java.util.HashMap;
+import java.util.concurrent.TimeUnit;
 
 public class LoginActivity extends AppCompatActivity {
     TextInputLayout username, password;
@@ -37,6 +46,7 @@ public class LoginActivity extends AppCompatActivity {
     MaterialButton loginbutton;
     LottieAnimationView progressBar;
     CheckBox checkBox;
+    String usernametext;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -90,7 +100,7 @@ public class LoginActivity extends AppCompatActivity {
         forgot.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String usernametext = username.getEditText().getText().toString().trim();
+                usernametext = username.getEditText().getText().toString().trim();
                 userfound(usernametext);
             }
         });
@@ -100,17 +110,18 @@ public class LoginActivity extends AppCompatActivity {
     private void userfound(final String usernametext) {
         progressBar.setVisibility(View.VISIBLE);
         progressBar.playAnimation();
-        FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
-        DatabaseReference databaseReference = firebaseDatabase.getReference("users").child(usernametext);
+        final FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
+        final DatabaseReference databaseReference = firebaseDatabase.getReference("users").child(usernametext);
         databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                if(snapshot.exists())
-                {
+                if(snapshot.exists()) {
+                    final String phoneNo = snapshot.child("mobile").getValue().toString();
                     progressBar.setVisibility(View.GONE);
                     username.setErrorEnabled(false);
-                    Intent intent = new Intent(LoginActivity.this, forgotPassword.class);
-                    intent.putExtra("username", usernametext);
+                    Intent intent=new Intent(LoginActivity.this,forgotPassword.class);
+                    intent.putExtra("username",usernametext);
+                    intent.putExtra("mobile",phoneNo);
                     startActivity(intent);
                 }
                 else { username.setError("User not found");progressBar.setVisibility(View.GONE);}
@@ -120,6 +131,9 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
     }
+
+
+
 
     private void showdialog() {
         AlertDialog.Builder builder = new AlertDialog.Builder(new ContextThemeWrapper(LoginActivity.this,R.style.Theme_AppCompat_Dialog_Alert));

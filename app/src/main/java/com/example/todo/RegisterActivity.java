@@ -22,11 +22,11 @@ import com.google.android.material.textfield.TextInputLayout;
 import com.google.android.material.textview.MaterialTextView;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-
-import java.util.regex.Pattern;
+import com.rilixtech.widget.countrycodepicker.CountryCodePicker;
 
 public class RegisterActivity extends AppCompatActivity {
-    TextInputLayout usernametext, passwordtext, fullnametext, emailtext;
+    TextInputLayout usernametext, passwordtext, fullnametext, phonetext;
+    CountryCodePicker countryCodePicker;
     MaterialButton signup;
     MaterialTextView gotologin;
     LottieAnimationView progressBar;
@@ -38,11 +38,12 @@ public class RegisterActivity extends AppCompatActivity {
 
         usernametext = findViewById(R.id.usernameinput1);
         passwordtext = findViewById(R.id.passwordinput1);
-        emailtext = findViewById(R.id.emailinput1);
+        phonetext = findViewById(R.id.phoneinput1);
         fullnametext = findViewById(R.id.Fullnameinput1);
         progressBar = findViewById(R.id.progbar2);
         signup = findViewById(R.id.signupbtn);
         gotologin = findViewById(R.id.loingoto);
+        countryCodePicker = findViewById(R.id.ccp);
 
         progressBar.setVisibility(View.GONE);
         signup.setOnClickListener(new View.OnClickListener() {
@@ -52,10 +53,10 @@ public class RegisterActivity extends AppCompatActivity {
                 String usernameinput = usernametext.getEditText().getText().toString().trim();
                 String passwordinput = passwordtext.getEditText().getText().toString().trim();
                 String fullnameinput = fullnametext.getEditText().getText().toString().trim();
-                String emailinput = emailtext.getEditText().getText().toString().trim();
-                if(isInternetAvalable(RegisterActivity.this)) {
-                    if (valid(usernameinput, passwordinput, fullnameinput, emailinput)) {
-                        UserHelperClass userHelperClass = new UserHelperClass(usernameinput, passwordinput, emailinput, fullnameinput);
+                String mobileinput = countryCodePicker.getSelectedCountryCodeWithPlus() + phonetext.getEditText().getText().toString().trim();
+                if (isInternetAvalable(RegisterActivity.this)) {
+                    if (valid(usernameinput, passwordinput, fullnameinput, mobileinput)) {
+                        UserHelperClass userHelperClass = new UserHelperClass(usernameinput, passwordinput, mobileinput, fullnameinput);
                         reguser(userHelperClass);
                         progressBar.setVisibility(View.GONE);
                         Toast.makeText(RegisterActivity.this, "Login in with your new account", Toast.LENGTH_SHORT).show();
@@ -65,8 +66,7 @@ public class RegisterActivity extends AppCompatActivity {
                         ActivityOptions activityOptions = ActivityOptions.makeSceneTransitionAnimation(RegisterActivity.this, pair);
                         startActivity(new Intent(RegisterActivity.this, LoginActivity.class), activityOptions.toBundle());
                     }
-                }
-                else
+                } else
                     showdialog();
             }
         });
@@ -85,7 +85,7 @@ public class RegisterActivity extends AppCompatActivity {
     }
 
     private void showdialog() {
-        AlertDialog.Builder builder=new AlertDialog.Builder(new ContextThemeWrapper(RegisterActivity.this,R.style.Theme_AppCompat_Light_Dialog_Alert));
+        AlertDialog.Builder builder = new AlertDialog.Builder(new ContextThemeWrapper(RegisterActivity.this, R.style.Theme_AppCompat_Light_Dialog_Alert));
         builder.setMessage("Connect to the internet to continue")
                 .setCancelable(false)
                 .setTitle("Connect to internet")
@@ -98,7 +98,7 @@ public class RegisterActivity extends AppCompatActivity {
                 .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        startActivity(new Intent(RegisterActivity.this,WelcomeActivity.class));
+                        startActivity(new Intent(RegisterActivity.this, WelcomeActivity.class));
                         finish();
                     }
                 });
@@ -107,13 +107,13 @@ public class RegisterActivity extends AppCompatActivity {
     }
 
     private boolean isInternetAvalable(RegisterActivity registerActivity) {
-        ConnectivityManager connectivityManag= (ConnectivityManager) registerActivity.getSystemService(Context.CONNECTIVITY_SERVICE);
+        ConnectivityManager connectivityManag = (ConnectivityManager) registerActivity.getSystemService(Context.CONNECTIVITY_SERVICE);
         assert connectivityManag != null;
-        NetworkInfo wificonn=connectivityManag.getNetworkInfo(ConnectivityManager.TYPE_WIFI);
-        NetworkInfo mobileconn=connectivityManag.getNetworkInfo(ConnectivityManager.TYPE_MOBILE);
+        NetworkInfo wificonn = connectivityManag.getNetworkInfo(ConnectivityManager.TYPE_WIFI);
+        NetworkInfo mobileconn = connectivityManag.getNetworkInfo(ConnectivityManager.TYPE_MOBILE);
         assert mobileconn != null;
         assert wificonn != null;
-        return((mobileconn!=null&&wificonn.isConnected())||(wificonn!=null&&mobileconn.isConnected()));
+        return ((mobileconn != null && wificonn.isConnected()) || (wificonn != null && mobileconn.isConnected()));
     }
 
     void reguser(UserHelperClass userHelperClass) {
@@ -128,29 +128,32 @@ public class RegisterActivity extends AppCompatActivity {
     private boolean valid(String usernameinput, String passwordinput, String fullnameinput, String emailinput) {
         boolean f1 = validfullname(fullnameinput);
         boolean f2 = validusername(usernameinput);
-        boolean f3 = validemail(emailinput);
+        boolean f3 = validephone(emailinput);
         boolean f4 = validpassword(passwordinput);
         return f1 && f2 && f3 && f4;
     }
 
-    private boolean validemail(String emailinput) {
+    private boolean validephone(String mobileinput) {
         boolean flag = true;
-        if (emailinput.isEmpty()) {
-            emailtext.setError("Field cannot be empty");
+        if (mobileinput.isEmpty()) {
+            phonetext.setError("Field cannot be empty");
             flag = false;
         } else {
-            Pattern VALID_EMAIL_ADDRESS_REGEX =
-                    Pattern.compile("^[a-zA-Z0-9_+&*-]+(?:\\." +
-                            "[a-zA-Z0-9_+&*-]+)*@" +
-                            "(?:[a-zA-Z0-9-]+\\.)+[a-z" +
-                            "A-Z]{2,7}$");
-            if (!VALID_EMAIL_ADDRESS_REGEX.matcher(emailinput).matches()) {
+            if (mobileinput.length() != 10)
                 flag = false;
-                emailtext.setError("Invaid email");
+            else {
+                for (int i = 0; i < mobileinput.length(); i++) {
+                    if (!Character.isDigit(mobileinput.charAt(i))) {
+                        flag = false;
+                        break;
+                    }
+                }
             }
+            if(!flag)
+                phonetext.setError("Invalid phone number");
         }
         if (flag) {
-            emailtext.setErrorEnabled(false);
+            phonetext.setErrorEnabled(false);
         }
         return flag;
     }

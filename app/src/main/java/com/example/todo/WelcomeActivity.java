@@ -26,6 +26,7 @@ public class WelcomeActivity extends AppCompatActivity {
                 ActivityOptions activityOptions=ActivityOptions.makeSceneTransitionAnimation(WelcomeActivity.this,pair);
                 Intent intent=new Intent(WelcomeActivity.this,LoginActivity.class);
                 startActivity(intent,activityOptions.toBundle());
+                finish();
             }
         });
         register.setOnClickListener(new View.OnClickListener() {
@@ -35,6 +36,7 @@ public class WelcomeActivity extends AppCompatActivity {
                 ActivityOptions activityOptions=ActivityOptions.makeSceneTransitionAnimation(WelcomeActivity.this,pair);
                 Intent intent=new Intent(WelcomeActivity.this,RegisterActivity.class);
                 startActivity(intent,activityOptions.toBundle());
+                finish();
             }
         });
 

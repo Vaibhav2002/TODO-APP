@@ -120,24 +120,43 @@
 
                 </com.google.android.material.textfield.TextInputLayout>
 
-                <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/emailinput1"
-                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                <LinearLayout
+                    android:id="@+id/mobie"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    app:endIconMode="clear_text"
+                    android:orientation="horizontal"
                     android:layout_below="@+id/usernameinput1">
 
-                    <com.google.android.material.textfield.TextInputEditText
+                    <com.rilixtech.widget.countrycodepicker.CountryCodePicker
+                        android:gravity="center_vertical"
+                        android:id="@+id/ccp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        app:ccp_arrowSize="20dp"
+                        app:ccp_defaultNameCode="IN"
+                        app:ccp_showFlag="true"
+                        app:ccp_hideNameCode="false"/>
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/phoneinput1"
+                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:hint="Email"
-                        android:inputType="textEmailAddress"
-                        android:textColor="#000000"
-                        android:textSize="20sp" />
+                        app:endIconMode="clear_text"
+                        >
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:hint="Phone Number"
+                            android:inputType="textEmailAddress"
+                            android:textColor="#000000"
+                            android:textSize="20sp" />
 
 
-                </com.google.android.material.textfield.TextInputLayout>
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                </LinearLayout>
 
                 <com.google.android.material.textfield.TextInputLayout
                     android:transitionName="passwordtrans"
@@ -145,7 +164,7 @@
                     style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_below="@+id/emailinput1"
+                    android:layout_below="@+id/mobie"
                     app:passwordToggleEnabled="true">
 
                     <com.google.android.material.textfield.TextInputEditText
