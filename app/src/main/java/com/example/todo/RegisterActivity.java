@@ -13,6 +13,7 @@ import android.util.Pair;
 import android.view.View;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.view.ContextThemeWrapper;
 
@@ -20,8 +21,12 @@ import com.airbnb.lottie.LottieAnimationView;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.textfield.TextInputLayout;
 import com.google.android.material.textview.MaterialTextView;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
+import com.google.firebase.database.ValueEventListener;
 import com.rilixtech.widget.countrycodepicker.CountryCodePicker;
 
 public class RegisterActivity extends AppCompatActivity {
@@ -30,6 +35,8 @@ public class RegisterActivity extends AppCompatActivity {
     MaterialButton signup;
     MaterialTextView gotologin;
     LottieAnimationView progressBar;
+    boolean userexists = true, phoneexits = true;
+    String usernameinput, passwordinput, fullnameinput, mobileinput;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,21 +57,54 @@ public class RegisterActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                String usernameinput = usernametext.getEditText().getText().toString().trim();
-                String passwordinput = passwordtext.getEditText().getText().toString().trim();
-                String fullnameinput = fullnametext.getEditText().getText().toString().trim();
-                String mobileinput = countryCodePicker.getSelectedCountryCodeWithPlus() + phonetext.getEditText().getText().toString().trim();
+                usernameinput = usernametext.getEditText().getText().toString().trim();
+                passwordinput = passwordtext.getEditText().getText().toString().trim();
+                fullnameinput = fullnametext.getEditText().getText().toString().trim();
+                mobileinput = countryCodePicker.getSelectedCountryCodeWithPlus() + phonetext.getEditText().getText().toString().trim();
+                System.out.println(mobileinput);
                 if (isInternetAvalable(RegisterActivity.this)) {
                     if (valid(usernameinput, passwordinput, fullnameinput, mobileinput)) {
-                        UserHelperClass userHelperClass = new UserHelperClass(usernameinput, passwordinput, mobileinput, fullnameinput);
-                        reguser(userHelperClass);
-                        progressBar.setVisibility(View.GONE);
-                        Toast.makeText(RegisterActivity.this, "Login in with your new account", Toast.LENGTH_SHORT).show();
-                        Pair pair[] = new Pair[2];
-                        pair[0] = new Pair<View, String>(usernametext, "usernametans");
-                        pair[1] = new Pair<View, String>(passwordtext, "passwordtans");
-                        ActivityOptions activityOptions = ActivityOptions.makeSceneTransitionAnimation(RegisterActivity.this, pair);
-                        startActivity(new Intent(RegisterActivity.this, LoginActivity.class), activityOptions.toBundle());
+                        progressBar.setVisibility(View.VISIBLE);
+                        progressBar.playAnimation();
+                        DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("users").child(usernameinput);
+                        databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                if(!snapshot.exists())
+                                {
+                                    usernametext.setErrorEnabled(false);
+                                    DatabaseReference databaseReference2 = FirebaseDatabase.getInstance().getReference("users");
+                                    Query query = databaseReference2.orderByChild("mobile").equalTo(mobileinput);
+                                    query.addListenerForSingleValueEvent(new ValueEventListener() {
+                                        @Override
+                                        public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                            if (!snapshot.exists()) {
+                                                phonetext.setErrorEnabled(false);
+                                                UserHelperClass userHelperClass = new UserHelperClass(usernameinput, passwordinput, mobileinput, fullnameinput);
+                                                reguser(userHelperClass);
+                                                progressBar.setVisibility(View.GONE);
+                                                Toast.makeText(RegisterActivity.this, "Login in with your new account", Toast.LENGTH_SHORT).show();
+                                                Pair pair[] = new Pair[2];
+                                                pair[0] = new Pair<View, String>(usernametext, "usernametans");
+                                                pair[1] = new Pair<View, String>(passwordtext, "passwordtans");
+                                                ActivityOptions activityOptions = ActivityOptions.makeSceneTransitionAnimation(RegisterActivity.this, pair);
+                                                startActivity(new Intent(RegisterActivity.this, LoginActivity.class), activityOptions.toBundle());
+                                            }
+                                            else phonetext.setError("Account with this number already exists");
+                                            progressBar.setVisibility(View.GONE);
+                                        }
+                                        @Override
+                                        public void onCancelled(@NonNull DatabaseError error) {
+                                        }
+                                    });
+                                }
+                                else usernametext.setError("Username already taken");
+                                progressBar.setVisibility(View.GONE);
+                            }
+                            @Override
+                            public void onCancelled(@NonNull DatabaseError error) {
+                            }
+                        });
                     }
                 } else
                     showdialog();
@@ -125,10 +165,10 @@ public class RegisterActivity extends AppCompatActivity {
         progressBar.setVisibility(View.GONE);
     }
 
-    private boolean valid(String usernameinput, String passwordinput, String fullnameinput, String emailinput) {
+    private boolean valid(String usernameinput, String passwordinput, String fullnameinput, String mobileinput) {
         boolean f1 = validfullname(fullnameinput);
         boolean f2 = validusername(usernameinput);
-        boolean f3 = validephone(emailinput);
+        boolean f3 = validephone(mobileinput);
         boolean f4 = validpassword(passwordinput);
         return f1 && f2 && f3 && f4;
     }
@@ -139,17 +179,17 @@ public class RegisterActivity extends AppCompatActivity {
             phonetext.setError("Field cannot be empty");
             flag = false;
         } else {
-            if (mobileinput.length() != 10)
+            if (mobileinput.length() != 13)
                 flag = false;
             else {
-                for (int i = 0; i < mobileinput.length(); i++) {
+                for (int i = 1; i < mobileinput.length(); i++) {
                     if (!Character.isDigit(mobileinput.charAt(i))) {
                         flag = false;
                         break;
                     }
                 }
             }
-            if(!flag)
+            if (!flag)
                 phonetext.setError("Invalid phone number");
         }
         if (flag) {

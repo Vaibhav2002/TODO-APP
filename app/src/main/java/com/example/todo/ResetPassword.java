@@ -48,7 +48,9 @@ public class ResetPassword extends AppCompatActivity {
                         progbar.setVisibility(View.GONE);
                         Toast.makeText(ResetPassword.this, "Password reset succesfull", Toast.LENGTH_SHORT).show();
                         Intent intent=new Intent(ResetPassword.this,ResetComplete.class);
+                        intent.putExtra("username",getIntent().getExtras().getString("username"));
                         startActivity(intent);
+                        finish();
                     }
                 }
                 else showdialog();
