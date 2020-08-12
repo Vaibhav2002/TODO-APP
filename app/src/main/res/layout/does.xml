@@ -6,7 +6,6 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:elevation="30dp"
-    app:rippleColor="@color/colorPrimaryDark"
     app:cardCornerRadius="20dp"
     app:cardBackgroundColor="#F1EFEF"
     android:outlineAmbientShadowColor="@color/colorPrimaryDark"
