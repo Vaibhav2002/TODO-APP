@@ -7,9 +7,12 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.PopupMenu;
 import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -29,27 +32,49 @@ public class TodoActivity extends AppCompatActivity {
     RecyclerView recyclerView;
     ArrayList<myDoes> list;
     DoesAdapter doesAdapter;
-    ImageView logout,newtodo;
+    ImageView newtodo,moreitem;
     ScrollView scrollView;
+    String username;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_todo);
         textView=findViewById(R.id.usernamedisp);
-        logout=findViewById(R.id.logouticon);
         newtodo=findViewById(R.id.newtodobtn);
         scrollView=findViewById(R.id.scroll);
-        final String username=getIntent().getExtras().getString("Username");
+        moreitem=findViewById(R.id.more);
+        username=getIntent().getExtras().getString("Username");
         textView.setText(username);
         recyclerView=findViewById(R.id.recycleview);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         list=new ArrayList<>();
 
-        logout.setOnClickListener(new View.OnClickListener() {
+        moreitem.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(TodoActivity.this,LoginActivity.class));
-                finish();
+                PopupMenu popupMenu=new PopupMenu(TodoActivity.this,v);
+                popupMenu.inflate(R.menu.todomenu);
+                popupMenu.show();
+                popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+                    @Override
+                    public boolean onMenuItemClick(MenuItem item) {
+                        switch (item.getItemId())
+                        {
+                            case R.id.editacc:
+                                Intent intent=new Intent(TodoActivity.this,editAccDetails.class);
+                                System.out.println(username);
+                                intent.putExtra("username",username);
+                                startActivity(intent);
+                                return true;
+                            case R.id.logout:
+                                startActivity(new Intent(TodoActivity.this,LoginActivity.class));
+                                finish();
+                                return true;
+                        }
+                        return false;
+                    }
+                });
             }
         });
 

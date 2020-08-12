@@ -11,7 +11,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".ResetComplete"></activity>
+        <activity android:name=".AccdetailEdit"></activity>
+        <activity android:name=".editAccDetails" />
+        <activity android:name=".ResetComplete" />
         <activity android:name=".ResetPassword" />
         <activity android:name=".forgotPassword" />
         <activity android:name=".EditTodo" />

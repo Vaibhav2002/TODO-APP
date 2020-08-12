@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 
-
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -15,8 +14,8 @@
         android:layout_alignParentRight="true"
         android:layout_alignParentBottom="true"
         android:layout_marginRight="20dp"
-        android:elevation="50dp"
         android:layout_marginBottom="20dp"
+        android:elevation="50dp"
         android:outlineAmbientShadowColor="@color/colorPrimaryDark"
         android:outlineSpotShadowColor="@color/colorPrimaryDark"
         android:src="@drawable/add" />
@@ -26,16 +25,16 @@
         android:id="@+id/scroll"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:background="#ffffff"
         android:nestedScrollingEnabled="false"
-        android:scrollbarStyle="outsideOverlay"
         android:scrollbarSize="10dp"
-        android:background="#ffffff">
+        android:scrollbarStyle="outsideOverlay">
 
         <RelativeLayout
-            tools:context=".TodoActivity"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            tools:context=".TodoActivity">
 
 
             <RelativeLayout
@@ -56,6 +55,16 @@
                     android:layout_marginRight="10dp"
                     android:src="@drawable/user" />
 
+                <ImageView
+                    android:id="@+id/more"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:src="@drawable/ic_baseline_more_vert_24"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentTop="true"
+                    android:layout_marginTop="-5dp"
+                    android:layout_marginEnd="-10dp"/>
+
                 <com.google.android.material.textview.MaterialTextView
                     android:id="@+id/usernamedisp"
                     android:layout_width="wrap_content"
@@ -66,26 +75,19 @@
                     android:textColor="#ffffff"
                     android:textSize="30sp" />
 
-                <ImageView
-                    android:id="@+id/logouticon"
-                    android:layout_width="30dp"
-                    android:layout_height="30dp"
-                    android:layout_alignParentTop="true"
-                    android:layout_alignParentRight="true"
-                    android:src="@drawable/logout" />
 
             </RelativeLayout>
 
-                <androidx.recyclerview.widget.RecyclerView
-                    android:layout_below="@id/titscr"
-                    android:id="@+id/recycleview"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="-60dp"
-                    android:elevation="100dp"
-                    android:outlineAmbientShadowColor="@color/colorPrimaryDark"
-                    android:outlineSpotShadowColor="@color/colorPrimaryDark"
-                    android:padding="20dp" />
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recycleview"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/titscr"
+                android:layout_marginTop="-60dp"
+                android:elevation="100dp"
+                android:outlineAmbientShadowColor="@color/colorPrimaryDark"
+                android:outlineSpotShadowColor="@color/colorPrimaryDark"
+                android:padding="20dp" />
 
             <com.google.android.material.textview.MaterialTextView
                 android:layout_width="wrap_content"
