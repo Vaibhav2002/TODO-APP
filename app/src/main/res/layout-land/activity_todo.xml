@@ -66,12 +66,12 @@
                     android:textSize="30sp" />
 
                 <ImageView
-                    android:id="@+id/logouticon"
+                    android:id="@+id/more"
                     android:layout_width="30dp"
                     android:layout_height="30dp"
                     android:layout_alignParentTop="true"
                     android:layout_alignParentRight="true"
-                    android:src="@drawable/logout" />
+                    android:src="@drawable/ic_baseline_more_vert_24" />
 
             </RelativeLayout>
 

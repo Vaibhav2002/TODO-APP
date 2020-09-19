@@ -4,4 +4,7 @@
     <color name="colorPrimaryDark">#e65100</color>
     <color name="colorAccent">#03DAC5</color>
     <color name="splashbg">#ff9800</color>
+    <color name="delete">#E53935</color>
+    <color name="edit">#3FCC45</color>
+
 </resources>

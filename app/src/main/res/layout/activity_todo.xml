@@ -3,6 +3,7 @@
 
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/todolayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -25,7 +26,6 @@
         android:id="@+id/scroll"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="#ffffff"
         android:nestedScrollingEnabled="false"
         android:scrollbarSize="10dp"
         android:scrollbarStyle="outsideOverlay">
@@ -83,11 +83,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/titscr"
-                android:layout_marginTop="-60dp"
+                android:layout_marginTop="-50dp"
                 android:elevation="100dp"
-                android:outlineAmbientShadowColor="@color/colorPrimaryDark"
-                android:outlineSpotShadowColor="@color/colorPrimaryDark"
-                android:padding="20dp" />
+                android:outlineAmbientShadowColor="@color/colorPrimaryDark" />
 
             <com.google.android.material.textview.MaterialTextView
                 android:layout_width="wrap_content"

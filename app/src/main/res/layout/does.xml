@@ -2,11 +2,13 @@
 <com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
+    android:id="@+id/cardV"
     style="@style/Widget.MaterialComponents.CardView"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:elevation="30dp"
     app:cardCornerRadius="20dp"
+    app:cardElevation="8dp"
+    android:layout_marginHorizontal="20dp"
     app:cardBackgroundColor="#F1EFEF"
     android:outlineAmbientShadowColor="@color/colorPrimaryDark"
     android:outlineSpotShadowColor="@color/colorPrimaryDark"
@@ -47,13 +49,27 @@
 
         <com.airbnb.lottie.LottieAnimationView
             android:id="@+id/checkTodo"
-            android:layout_marginTop="-5dp"
-            android:layout_marginRight="-5dp"
+            android:layout_marginTop="-6dp"
+            android:layout_marginRight="-6dp"
             android:layout_width="35dp"
             android:layout_height="35dp"
             android:layout_alignParentTop="true"
             android:layout_alignParentRight="true"
             app:lottie_rawRes="@raw/checkboxcustom"/>
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/datedoes"
+            android:layout_alignParentRight="true"
+            android:layout_below="@+id/checkTodo"
+            android:layout_marginTop="8dp"
+            android:layout_width="wrap_content"
+            android:shadowColor="@color/colorPrimaryDark"
+            android:layout_height="wrap_content"
+            android:textSize="15sp"
+            android:elevation="20dp"
+            android:text="30/8/2020"
+            android:includeFontPadding="false"
+            android:fontFamily="sans-serif"/>
 
 
     </RelativeLayout>

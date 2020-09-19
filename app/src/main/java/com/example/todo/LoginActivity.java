@@ -71,6 +71,8 @@ public class LoginActivity extends AppCompatActivity {
         loginbutton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                progressBar.setVisibility(View.VISIBLE);
+                progressBar.playAnimation();
                 if (isInternetAvalable(LoginActivity.this)) {
                     String usernametext = username.getEditText().getText().toString().trim();
                     String userpassword = password.getEditText().getText().toString().trim();
@@ -185,8 +187,6 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private void usercheck(final String usernametext, final String userpassword) {
-        progressBar.setVisibility(View.VISIBLE);
-        progressBar.playAnimation();
         FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
         DatabaseReference databaseReference = firebaseDatabase.getReference("users");
         Query check = databaseReference.orderByChild("username").equalTo(usernametext);

@@ -35,7 +35,6 @@ public class RegisterActivity extends AppCompatActivity {
     MaterialButton signup;
     MaterialTextView gotologin;
     LottieAnimationView progressBar;
-    boolean userexists = true, phoneexits = true;
     String usernameinput, passwordinput, fullnameinput, mobileinput;
 
     @Override
@@ -70,8 +69,7 @@ public class RegisterActivity extends AppCompatActivity {
                         databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
                             @Override
                             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                                if(!snapshot.exists())
-                                {
+                                if (!snapshot.exists()) {
                                     usernametext.setErrorEnabled(false);
                                     DatabaseReference databaseReference2 = FirebaseDatabase.getInstance().getReference("users");
                                     Query query = databaseReference2.orderByChild("mobile").equalTo(mobileinput);
@@ -89,18 +87,19 @@ public class RegisterActivity extends AppCompatActivity {
                                                 pair[1] = new Pair<View, String>(passwordtext, "passwordtans");
                                                 ActivityOptions activityOptions = ActivityOptions.makeSceneTransitionAnimation(RegisterActivity.this, pair);
                                                 startActivity(new Intent(RegisterActivity.this, LoginActivity.class), activityOptions.toBundle());
-                                            }
-                                            else phonetext.setError("Account with this number already exists");
+                                            } else
+                                                phonetext.setError("Account with this number already exists");
                                             progressBar.setVisibility(View.GONE);
                                         }
+
                                         @Override
                                         public void onCancelled(@NonNull DatabaseError error) {
                                         }
                                     });
-                                }
-                                else usernametext.setError("Username already taken");
+                                } else usernametext.setError("Username already taken");
                                 progressBar.setVisibility(View.GONE);
                             }
+
                             @Override
                             public void onCancelled(@NonNull DatabaseError error) {
                             }

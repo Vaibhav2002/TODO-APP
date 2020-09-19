@@ -1,7 +1,15 @@
 package com.example.todo;
 
 public class newTodoHelper {
-    String TITLE,DESCRIPTION;
+    String TITLE,DESCRIPTION,DATE;
+
+    public String getDATE() {
+        return DATE;
+    }
+
+    public void setDATE(String DATE) {
+        this.DATE = DATE;
+    }
 
     public String getTITLE() {
         return TITLE;
@@ -22,8 +30,9 @@ public class newTodoHelper {
     public newTodoHelper() {
     }
 
-    public newTodoHelper(String TITLE, String DESCRIPTION) {
+    public newTodoHelper(String TITLE, String DESCRIPTION,String DATE) {
         this.TITLE = TITLE;
         this.DESCRIPTION = DESCRIPTION;
+        this.DATE=DATE;
     }
 }

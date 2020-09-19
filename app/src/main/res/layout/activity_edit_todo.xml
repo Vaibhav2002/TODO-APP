@@ -24,6 +24,7 @@
         android:shadowColor="@color/colorPrimaryDark"
         android:elevation="20dp"/>
 
+
     <com.google.android.material.card.MaterialCardView
         app:cardCornerRadius="20dp"
         app:strokeColor="@color/colorPrimaryDark"
@@ -32,51 +33,85 @@
         android:layout_height="match_parent"
         android:layout_below="@+id/titlenewtodo">
 
-        <LinearLayout
+        <ScrollView
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:padding="20dp"
-            android:orientation="vertical">
+            android:layout_height="match_parent">
 
-
-
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/titleedit"
-                android:layout_marginTop="60dp"
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Title"
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+                android:padding="20dp"
+                android:orientation="vertical">
 
 
-                <com.google.android.material.textfield.TextInputEditText
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/titleedit"
+                    android:layout_marginTop="60dp"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:fontFamily="sans-serif"
-                    android:textSize="20sp"
-                    android:maxLines="1"/>
+                    android:layout_height="wrap_content"
+                    android:hint="Title"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
 
 
-            </com.google.android.material.textfield.TextInputLayout>
-
-            <com.google.android.material.textfield.TextInputLayout
-                android:layout_marginTop="10dp"
-                android:id="@+id/descedit"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="Description"
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:fontFamily="sans-serif"
+                        android:textSize="20sp"
+                        android:maxLines="1"/>
 
 
-                <com.google.android.material.textfield.TextInputEditText
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:layout_marginTop="10dp"
+                    android:id="@+id/descedit"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:fontFamily="sans-serif"
-                    android:textSize="20sp" />
+                    android:layout_height="wrap_content"
+                    android:hint="Description"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
 
 
-            </com.google.android.material.textfield.TextInputLayout>
-        </LinearLayout>
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:fontFamily="sans-serif"
+                        android:textSize="20sp" />
+
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:layout_marginTop="20dp">
+
+                    <com.google.android.material.textview.MaterialTextView
+                        android:id="@+id/dateshow2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="50dp"
+                        android:text="Date"
+                        android:layout_alignParentStart="true"
+                        android:gravity="center_vertical"
+                        android:fontFamily="sans-serif"
+                        android:textSize="20sp"
+                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"/>
+
+                    <ImageButton
+                        android:id="@+id/datepick2"
+                        android:layout_width="48dp"
+                        android:layout_height="48dp"
+                        android:src="@drawable/ic_baseline_calendar_today_24"
+                        android:layout_alignParentEnd="true"/>
+
+                </RelativeLayout>
+            </LinearLayout>
+
+        </ScrollView>
+
+
 
     </com.google.android.material.card.MaterialCardView>
 
